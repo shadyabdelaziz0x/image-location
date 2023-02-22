@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {ViewStyleSheet} from '@camera-app/utils';
+import {ViewStyleSheet} from '@image-loc/utils';
 
 const viewStyle = ViewStyleSheet({
   container: {
