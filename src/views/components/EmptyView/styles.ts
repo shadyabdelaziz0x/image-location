@@ -5,21 +5,32 @@ import {
   TextStyleSheet,
   ViewStyleSheet,
 } from '@image-loc/utils';
-import {R} from '@image-loc/res';
 
 const viewStyle = ViewStyleSheet({
   container: {
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: R.colors.appBackground,
-    paddingVertical: hp(44),
-    justifyContent: 'space-between',
   },
 });
 
-const textStyles = TextStyleSheet({});
+const textStyles = TextStyleSheet({
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: hp(10),
+  },
+  description: {
+    fontSize: 14,
+  },
+});
 
-const imageStyles = ImageStyleSheet({});
+const imageStyles = ImageStyleSheet({
+  image: {
+    width: 90,
+    height: 90,
+  },
+});
 
 export const styles = StyleSheet.create({
   ...viewStyle,
