@@ -1,7 +1,11 @@
 const strings = {
-  pickImage: 'Pick Image',
-  emptyTitle: 'No Images Added Yet',
-  emptyDescription: 'Click Pick Image to pick an image',
-  viewLocation: 'View Location',
+  pickImage: 'Pick image',
+  emptyTitle: 'No images added yet',
+  emptyDescription: 'Click pick image to pick an image',
+  viewLocation: 'View location',
+  openCamera: 'Open camera',
+  openLibrary: 'Open library',
+  cancel: 'Cancel',
+  pickOption: 'Pick an option',
 };
 export default strings;
