@@ -2,7 +2,7 @@ import {imageSlice} from './slice';
 
 const {
   setImageUri: setImageUriAction,
-  setImageLocation: setImageUriActionAction,
+  setImageLocation: setImageLocationAction,
 } = imageSlice.actions;
 
-export {setImageUriAction, setImageUriActionAction};
+export {setImageUriAction, setImageLocationAction};

@@ -19,7 +19,8 @@
     "lint-fix": "yarn lint:ts --fix",
     "lint-styled-fix": "yarn lint:styled --fix",
     "pods": "cd ios && bundle exec pod install && cd ..",
-    "link-pkgs": "react-native link"
+    "link-pkgs": "react-native link",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.4",
@@ -30,7 +31,8 @@
     "react": "18.2.0",
     "react-native": "0.71.3",
     "react-native-actionsheet": "^2.4.2",
-    "react-native-image-crop-picker": "^0.39.0",
+    "react-native-get-location": "^2.2.1",
+    "react-native-image-crop-picker": "^0.37.3",
     "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "^4.5.0",
     "react-native-screens": "^3.20.0",

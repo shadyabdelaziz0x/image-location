@@ -9,3 +9,8 @@ export const sheetOptions = [
   R.strings.openLibrary,
   R.strings.cancel,
 ];
+
+export enum ImageSource {
+  Camera = 'Camera',
+  Picker = 'Picker',
+}
