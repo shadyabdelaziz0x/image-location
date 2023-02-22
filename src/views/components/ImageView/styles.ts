@@ -9,6 +9,7 @@ import {R} from '@image-loc/res';
 
 const viewStyle = ViewStyleSheet({
   container: {
+    flex: 1,
     alignItems: 'center',
   },
   button: {

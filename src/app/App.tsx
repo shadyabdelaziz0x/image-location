@@ -7,9 +7,15 @@
 
 import React from 'react';
 import {AppNavigator} from '@image-loc/navigation/app';
+import {Provider} from 'react-redux';
+import {store} from '@image-loc/state/storeConfig/store';
 
 function App(): JSX.Element {
-  return <AppNavigator />;
+  return (
+    <Provider store={store}>
+      <AppNavigator />
+    </Provider>
+  );
 }
 
 export default App;
