@@ -23,33 +23,15 @@ export const Main = () => {
     };
   });
 
-  const extractLocationFromLibraryIOS = useCallback(
+  const extractLocationFromImage = useCallback(
     (imageData: object) => {
       try {
-        let iosImageLat: number | undefined = (imageData as any)['{GPS}']
-          .Latitude;
-        let iosImageLng: number | undefined = (imageData as any)['{GPS}']
-          .Longitude;
-        if (iosImageLat && iosImageLng) {
-          dispatch(
-            setImageLocationAction({
-              lat: iosImageLat,
-              lng: iosImageLng,
-            }),
-          );
-        }
-      } catch (error) {
-        dispatch(setImageLocationAction(undefined));
-      }
-    },
-    [dispatch],
-  );
-
-  const extractLocationFromLibraryAndroid = useCallback(
-    (imageData: object) => {
-      try {
-        let androidImageLat: number | undefined = (imageData as any).latitude;
-        let androidImageLng: number | undefined = (imageData as any).longitude;
+        let androidImageLat: number | undefined =
+          'Latitude' in imageData ? (imageData.Latitude as number) : undefined;
+        let androidImageLng: number | undefined =
+          'Longitude' in imageData
+            ? (imageData.Longitude as number)
+            : undefined;
         if (androidImageLat && androidImageLng) {
           dispatch(
             setImageLocationAction({
@@ -57,6 +39,8 @@ export const Main = () => {
               lng: androidImageLng,
             }),
           );
+        } else {
+          dispatch(setImageLocationAction(undefined));
         }
       } catch (error) {
         dispatch(setImageLocationAction(undefined));
@@ -66,19 +50,19 @@ export const Main = () => {
   );
 
   const setImageLocation = useCallback(
-    (imageData: object) => {
+    (imageData: Record<string, object>) => {
       switch (Platform.OS) {
         case 'android':
-          extractLocationFromLibraryAndroid(imageData);
+          extractLocationFromImage(imageData);
           break;
         case 'ios':
-          extractLocationFromLibraryIOS(imageData);
+          extractLocationFromImage(imageData['{GPS}']);
           break;
         default:
           break;
       }
     },
-    [extractLocationFromLibraryAndroid, extractLocationFromLibraryIOS],
+    [extractLocationFromImage],
   );
 
   const setCurrentLocation = useCallback(() => {
@@ -102,7 +86,8 @@ export const Main = () => {
               setCurrentLocation();
               break;
             case ImageSource.Picker:
-              response.exif && setImageLocation(response.exif);
+              response.exif &&
+                setImageLocation(response.exif as Record<string, object>);
               break;
           }
         })
