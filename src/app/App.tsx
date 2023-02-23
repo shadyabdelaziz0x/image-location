@@ -6,14 +6,14 @@
  */
 
 import React from 'react';
-import {AppNavigator} from '@image-loc/navigation/app';
 import {Provider} from 'react-redux';
 import {store} from '@image-loc/state/storeConfig/store';
+import {Main} from '@image-loc/views/containers';
 
 function App(): JSX.Element {
   return (
     <Provider store={store}>
-      <AppNavigator />
+      <Main />
     </Provider>
   );
 }

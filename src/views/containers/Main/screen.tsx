@@ -22,7 +22,7 @@ export const Main = () => {
     return () => {
       ImagePicker.clean();
     };
-  });
+  }, []);
 
   const extractLocationFromImage = useCallback(
     (imageData: object) => {

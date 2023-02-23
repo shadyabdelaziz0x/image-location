@@ -8,7 +8,7 @@ import {Button} from '@image-loc/views/atoms';
 export const PickImageButton = (props: PickImageButtonProps) => {
   return (
     <Button
-      style={styles.container}
+      style={[styles.container, props.style]}
       leftElement={<Image source={R.images.camera} style={styles.icon} />}
       onPress={props.onPress}
       text={R.strings.pickImage}

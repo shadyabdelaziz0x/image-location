@@ -8,7 +8,10 @@ export const MainView = (props: MainViewProps) => {
   return (
     <View style={styles.container}>
       <ImageView />
-      <PickImageButton onPress={props.onPickImageClicked} />
+      <PickImageButton
+        style={styles.pickButton}
+        onPress={props.onPickImageClicked}
+      />
     </View>
   );
 };

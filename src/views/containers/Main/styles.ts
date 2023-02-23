@@ -11,6 +11,9 @@ const viewStyle = ViewStyleSheet({
     paddingBottom: hp(44),
     justifyContent: 'space-between',
   },
+  pickButton: {
+    marginTop: hp(10),
+  },
 });
 
 export const styles = StyleSheet.create({
