@@ -13,10 +13,10 @@ export const imageSlice = createSlice({
       },
     },
     setImageLocation: {
-      prepare: (location: ImageLocation) => ({payload: {location}}),
+      prepare: (location?: ImageLocation) => ({payload: {location}}),
       reducer: (
         state,
-        {payload: {location}}: PayloadAction<{location: ImageLocation}>,
+        {payload: {location}}: PayloadAction<{location?: ImageLocation}>,
       ) => {
         return {...state, location: location};
       },

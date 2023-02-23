@@ -23,6 +23,64 @@ export const Main = () => {
     };
   });
 
+  const extractLocationFromLibraryIOS = useCallback(
+    (imageData: object) => {
+      try {
+        let iosImageLat: number | undefined = (imageData as any)['{GPS}']
+          .Latitude;
+        let iosImageLng: number | undefined = (imageData as any)['{GPS}']
+          .Longitude;
+        if (iosImageLat && iosImageLng) {
+          dispatch(
+            setImageLocationAction({
+              lat: iosImageLat,
+              lng: iosImageLng,
+            }),
+          );
+        }
+      } catch (error) {
+        dispatch(setImageLocationAction(undefined));
+      }
+    },
+    [dispatch],
+  );
+
+  const extractLocationFromLibraryAndroid = useCallback(
+    (imageData: object) => {
+      try {
+        let androidImageLat: number | undefined = (imageData as any).latitude;
+        let androidImageLng: number | undefined = (imageData as any).longitude;
+        if (androidImageLat && androidImageLng) {
+          dispatch(
+            setImageLocationAction({
+              lat: androidImageLat,
+              lng: androidImageLng,
+            }),
+          );
+        }
+      } catch (error) {
+        dispatch(setImageLocationAction(undefined));
+      }
+    },
+    [dispatch],
+  );
+
+  const setImageLocation = useCallback(
+    (imageData: object) => {
+      switch (Platform.OS) {
+        case 'android':
+          extractLocationFromLibraryAndroid(imageData);
+          break;
+        case 'ios':
+          extractLocationFromLibraryIOS(imageData);
+          break;
+        default:
+          break;
+      }
+    },
+    [extractLocationFromLibraryAndroid, extractLocationFromLibraryIOS],
+  );
+
   const setCurrentLocation = useCallback(() => {
     if (lat && lng) {
       dispatch(
@@ -33,43 +91,6 @@ export const Main = () => {
       );
     }
   }, [dispatch, lat, lng]);
-
-  const setImageLocation = useCallback(
-    (imageData: object) => {
-      switch (Platform.OS) {
-        case 'android':
-          let androidImageLat: number | undefined = (imageData as any).latitude;
-          let androidImageLng: number | undefined = (imageData as any)
-            .longitude;
-          if (androidImageLat && androidImageLng) {
-            dispatch(
-              setImageLocationAction({
-                lat: androidImageLat,
-                lng: androidImageLng,
-              }),
-            );
-          }
-          break;
-        case 'ios':
-          let iosImageLat: number | undefined = (imageData as any)['{GPS}']
-            .Latitude;
-          let iosImageLng: number | undefined = (imageData as any)['{GPS}']
-            .Longitude;
-          if (iosImageLat && iosImageLng) {
-            dispatch(
-              setImageLocationAction({
-                lat: iosImageLat,
-                lng: iosImageLng,
-              }),
-            );
-          }
-          break;
-        default:
-          break;
-      }
-    },
-    [dispatch],
-  );
 
   const onImageSelected = useCallback(
     (action: Promise<Image>, source: ImageSource) => {
@@ -101,7 +122,6 @@ export const Main = () => {
         useFrontCamera: true,
         includeExif: true,
       };
-
       switch (index) {
         case 0:
           onImageSelected(ImagePicker.openCamera(options), ImageSource.Camera);
