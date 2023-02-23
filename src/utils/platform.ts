@@ -1,8 +1,15 @@
-import {Dimensions, Platform} from 'react-native';
-import {
-  widthPercentageToDP,
-  heightPercentageToDP,
-} from 'react-native-responsive-screen';
+import {Dimensions, Platform, PixelRatio} from 'react-native';
+
+let screenWidth = Dimensions.get('window').width;
+let screenHeight = Dimensions.get('window').height;
+
+const widthPercentageToDP = (widthPercent: number) => {
+  return PixelRatio.roundToNearestPixel((screenWidth * widthPercent) / 100);
+};
+
+const heightPercentageToDP = (heightPercent: number) => {
+  return PixelRatio.roundToNearestPixel((screenHeight * heightPercent) / 100);
+};
 
 export const IS_IOS = Platform.OS === 'ios';
 
