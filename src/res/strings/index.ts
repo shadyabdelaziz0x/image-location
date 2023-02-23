@@ -7,5 +7,6 @@ const strings = {
   openLibrary: 'Open library',
   cancel: 'Cancel',
   pickOption: 'Pick an option',
+  noLocationAvailable: 'No locations available',
 };
 export default strings;
