@@ -7,7 +7,8 @@ export const Button = (props: ButtonProps) => {
   return (
     <TouchableOpacity
       onPress={props.onPress}
-      style={[styles.button, props.style]}>
+      disabled={props.disabled}
+      style={[styles.button, props.style, props.disabled && styles.disabled]}>
       {props.leftElement && props.leftElement}
       <Text style={styles.title}>{props.text}</Text>
       {props.rightElement && props.rightElement}

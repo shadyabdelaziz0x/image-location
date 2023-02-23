@@ -11,6 +11,9 @@ const viewStyle = ViewStyleSheet({
     height: 50,
     backgroundColor: R.colors.primaryOrange,
   },
+  disabled: {
+    opacity: 0.5,
+  },
 });
 
 const textStyles = TextStyleSheet({

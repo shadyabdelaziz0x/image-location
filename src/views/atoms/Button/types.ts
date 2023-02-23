@@ -6,4 +6,5 @@ export interface ButtonProps {
   leftElement?: JSX.Element;
   rightElement?: JSX.Element;
   style?: ViewStyle;
+  disabled?: boolean;
 }
