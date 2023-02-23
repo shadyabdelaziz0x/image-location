@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {View} from 'react-native';
 import {MapViewProps} from './types';
 import MapView, {Marker} from 'react-native-maps';
@@ -6,14 +6,14 @@ import {styles} from './styles';
 import {ImageButton} from '@image-loc/views/atoms';
 import {R} from '@image-loc/res';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {selectedImageLocation} from '@image-loc/state/ducks/image';
 
 export const MapScreenView = ({}: MapViewProps) => {
   const map = useRef<MapView | null>(null);
   const navigation = useNavigation();
 
-  useEffect(() => {
-    map.current?.fitToCoordinates();
-  }, []);
+  const location = useSelector(selectedImageLocation);
 
   const onBackPressed = useCallback(() => {
     navigation.goBack();
@@ -32,19 +32,17 @@ export const MapScreenView = ({}: MapViewProps) => {
         style={styles.container}
         focusable
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitude: location!.lat,
+          longitude: location!.lng,
+          latitudeDelta: 0.009,
+          longitudeDelta: 0.009,
         }}>
         <Marker
           key={'location'}
           coordinate={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: location!.lat,
+            longitude: location!.lng,
           }}
-          title={'marker.title'}
-          description={'marker.description'}
         />
       </MapView>
     </View>

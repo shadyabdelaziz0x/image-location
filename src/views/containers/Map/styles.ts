@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {hp, ViewStyleSheet, wp, ImageStyleSheet} from '@image-loc/utils';
+import {R} from '@image-loc/res';
 
 const viewStyle = ViewStyleSheet({
   container: {
@@ -9,11 +10,13 @@ const viewStyle = ViewStyleSheet({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    left: wp(10),
-    top: hp(25),
+    left: wp(30),
+    top: hp(55),
     zIndex: 100,
     width: 50,
     height: 50,
+    backgroundColor: R.colors.appBackground,
+    borderRadius: 10,
   },
 });
 
@@ -22,6 +25,7 @@ const imageStyle = ImageStyleSheet({
     resizeMode: 'contain',
     width: 24,
     height: 24,
+    tintColor: R.colors.primaryOrange,
   },
 });
 

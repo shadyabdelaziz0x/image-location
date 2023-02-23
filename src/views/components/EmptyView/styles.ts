@@ -5,6 +5,7 @@ import {
   TextStyleSheet,
   ViewStyleSheet,
 } from '@image-loc/utils';
+import {R} from '@image-loc/res';
 
 const viewStyle = ViewStyleSheet({
   container: {
@@ -17,10 +18,14 @@ const viewStyle = ViewStyleSheet({
 const textStyles = TextStyleSheet({
   title: {
     fontSize: 18,
+    ...R.typography.core.text,
+    color: R.colors.black,
     fontWeight: 'bold',
     marginBottom: hp(10),
   },
   description: {
+    color: R.colors.black,
+    ...R.typography.core.text,
     fontSize: 14,
   },
 });

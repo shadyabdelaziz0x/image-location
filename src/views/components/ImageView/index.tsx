@@ -1,13 +1,14 @@
 import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, View} from 'react-native';
 import {styles} from './styles';
 import {ImageViewProps, MainScreenNavigationProp} from './types';
-import {R} from '@image-loc/res';
 import {useNavigation} from '@react-navigation/native';
 import {AppRoutes} from '@image-loc/navigation/app/types';
 import {EmptyView} from '../EmptyView';
 import {useSelector} from 'react-redux';
 import {selectedImageUri} from '@image-loc/state/ducks/image';
+import {Button} from '@image-loc/views/atoms';
+import {R} from '@image-loc/res';
 
 export const ImageView = (props: ImageViewProps) => {
   const navigation = useNavigation<MainScreenNavigationProp>();
@@ -25,9 +26,12 @@ export const ImageView = (props: ImageViewProps) => {
       ) : (
         <>
           <Image source={{uri: imageUri}} style={styles.image} />
-          <TouchableOpacity onPress={navigateToMap} style={styles.button}>
-            <Text style={styles.title}>{R.strings.viewLocation}</Text>
-          </TouchableOpacity>
+          <Button
+            style={styles.button}
+            onPress={navigateToMap}
+            text={R.strings.viewLocation}
+            rightElement={<Image style={styles.arrow} source={R.images.back} />}
+          />
         </>
       )}
     </View>

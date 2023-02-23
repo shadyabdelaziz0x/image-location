@@ -1,4 +1,4 @@
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {MainView} from './view';
 import ActionSheet from 'react-native-actionsheet';
 import {ImageSource, sheetOptions} from './types';
@@ -16,6 +16,12 @@ export const Main = () => {
   const sheet = useRef<ActionSheet | null>(null);
   const {lat, lng} = useLocation();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      ImagePicker.clean();
+    };
+  });
 
   const setCurrentLocation = useCallback(() => {
     if (lat && lng) {

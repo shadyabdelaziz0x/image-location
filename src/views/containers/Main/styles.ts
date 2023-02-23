@@ -1,10 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {
-  hp,
-  ImageStyleSheet,
-  TextStyleSheet,
-  ViewStyleSheet,
-} from '@image-loc/utils';
+import {hp, ViewStyleSheet} from '@image-loc/utils';
 import {R} from '@image-loc/res';
 
 const viewStyle = ViewStyleSheet({
@@ -12,17 +7,12 @@ const viewStyle = ViewStyleSheet({
     flex: 1,
     alignItems: 'center',
     backgroundColor: R.colors.appBackground,
-    paddingVertical: hp(44),
+    paddingTop: hp(60),
+    paddingBottom: hp(44),
     justifyContent: 'space-between',
   },
 });
 
-const textStyles = TextStyleSheet({});
-
-const imageStyles = ImageStyleSheet({});
-
 export const styles = StyleSheet.create({
   ...viewStyle,
-  ...textStyles,
-  ...imageStyles,
 });
