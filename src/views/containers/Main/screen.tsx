@@ -11,6 +11,7 @@ import {
   setImageUriAction,
 } from '@image-loc/state/ducks/image';
 import {useLocation} from '@image-loc/hooks/useLocation';
+import {hp} from '@image-loc/utils';
 
 export const Main = () => {
   const sheet = useRef<ActionSheet | null>(null);
@@ -101,8 +102,8 @@ export const Main = () => {
   const onSheetOptionIndexClicked = useCallback(
     (index: number) => {
       const options: Options = {
-        height: 300,
-        width: 300,
+        height: hp(350),
+        width: hp(300),
         mediaType: 'photo',
         useFrontCamera: true,
         includeExif: true,
