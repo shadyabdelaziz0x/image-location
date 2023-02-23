@@ -4,17 +4,87 @@ import ActionSheet from 'react-native-actionsheet';
 import {ImageSource, sheetOptions} from './types';
 import {R} from '@image-loc/res';
 import ImagePicker, {Image, Options} from 'react-native-image-crop-picker';
-import {Alert} from 'react-native';
+import {Alert, Platform} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {setImageUriAction} from '@image-loc/state/ducks/image';
+import {
+  setImageLocationAction,
+  setImageUriAction,
+} from '@image-loc/state/ducks/image';
+import {useLocation} from '@image-loc/hooks/useLocation';
 
 export const Main = () => {
   const sheet = useRef<ActionSheet | null>(null);
+  const {lat, lng} = useLocation();
   const dispatch = useDispatch();
 
-  const onPickImageClicked = useCallback(() => {
-    sheet.current?.show();
-  }, []);
+  const setCurrentLocation = useCallback(() => {
+    if (lat && lng) {
+      dispatch(
+        setImageLocationAction({
+          lat: lat,
+          lng: lng,
+        }),
+      );
+    }
+  }, [dispatch, lat, lng]);
+
+  const setImageLocation = useCallback(
+    (imageData: object) => {
+      switch (Platform.OS) {
+        case 'android':
+          let androidImageLat: number | undefined = (imageData as any).latitude;
+          let androidImageLng: number | undefined = (imageData as any)
+            .longitude;
+          if (androidImageLat && androidImageLng) {
+            dispatch(
+              setImageLocationAction({
+                lat: androidImageLat,
+                lng: androidImageLng,
+              }),
+            );
+          }
+          break;
+        case 'ios':
+          let iosImageLat: number | undefined = (imageData as any)['{GPS}']
+            .Latitude;
+          let iosImageLng: number | undefined = (imageData as any)['{GPS}']
+            .Longitude;
+          if (iosImageLat && iosImageLng) {
+            dispatch(
+              setImageLocationAction({
+                lat: iosImageLat,
+                lng: iosImageLng,
+              }),
+            );
+          }
+          break;
+        default:
+          break;
+      }
+    },
+    [dispatch],
+  );
+
+  const onImageSelected = useCallback(
+    (action: Promise<Image>, source: ImageSource) => {
+      action
+        .then(response => {
+          dispatch(setImageUriAction(response.path));
+          switch (source) {
+            case ImageSource.Camera:
+              setCurrentLocation();
+              break;
+            case ImageSource.Picker:
+              response.exif && setImageLocation(response.exif);
+              break;
+          }
+        })
+        .catch(error => {
+          Alert.alert(error.message);
+        });
+    },
+    [dispatch, setCurrentLocation, setImageLocation],
+  );
 
   const onSheetOptionIndexClicked = useCallback(
     (index: number) => {
@@ -24,26 +94,6 @@ export const Main = () => {
         mediaType: 'photo',
         useFrontCamera: true,
         includeExif: true,
-      };
-
-      const onImageSelected = (action: Promise<Image>, source: ImageSource) => {
-        action
-          .then(response => {
-            dispatch(setImageUriAction(response.path));
-            switch (source) {
-              case ImageSource.Camera:
-                break;
-              case ImageSource.Picker:
-                console.log('DATA => ', response.exif);
-                break;
-            }
-          })
-          .catch(error => {
-            Alert.alert('Error:', error.message);
-          })
-          .finally(() => {
-            ImagePicker.clean();
-          });
       };
 
       switch (index) {
@@ -57,8 +107,12 @@ export const Main = () => {
           break;
       }
     },
-    [dispatch],
+    [onImageSelected],
   );
+
+  const onPickImageClicked = useCallback(() => {
+    sheet.current?.show();
+  }, []);
 
   return (
     <>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {AppRoutes} from '../types';
-import {Main} from '@image-loc/views/containers/Main/screen';
+import {Map, Main} from '@image-loc/views/containers';
 
 export const MainStack = createNativeStackNavigator();
 
@@ -12,6 +12,7 @@ export const MainNavigator = () => {
         headerShown: false,
       }}>
       <MainStack.Screen name={AppRoutes.Main} component={Main} />
+      <MainStack.Screen name={AppRoutes.Map} component={Map} />
     </MainStack.Navigator>
   );
 };
