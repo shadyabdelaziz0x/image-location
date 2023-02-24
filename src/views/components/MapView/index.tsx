@@ -1,5 +1,4 @@
 import React from 'react';
-// import {View} from 'react-native';
 import {MapViewProps} from './types';
 import MapView, {Marker} from 'react-native-maps';
 import {styles} from './styles';
@@ -12,7 +11,7 @@ export const MapScreenView = (props: MapViewProps) => {
         <MapView
           style={styles.container}
           focusable
-          initialRegion={{
+          region={{
             latitude: props.location.lat,
             longitude: props.location.lng,
             latitudeDelta: 0.009,
