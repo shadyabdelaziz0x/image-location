@@ -67,6 +67,7 @@ export const Main = () => {
   );
 
   const setCurrentLocation = useCallback(() => {
+    console.log('AHMED');
     if (lat && lng) {
       dispatch(
         setImageLocationAction({

@@ -4,7 +4,7 @@ import Logger from 'redux-logger';
 import {IS_DEV_ENV} from '@image-loc/utils';
 import appReducer from './rootReducer';
 
-const configureAppStore = () => {
+export const configureAppStore = () => {
   const loggerMiddleware: Middleware = Logger;
 
   const appStore = configureStore({

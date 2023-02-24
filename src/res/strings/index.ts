@@ -8,5 +8,6 @@ const strings = {
   cancel: 'Cancel',
   pickOption: 'Pick an option',
   noLocationAvailable: 'No locations available',
+  actionSheet: 'actionSheet',
 };
 export default strings;
